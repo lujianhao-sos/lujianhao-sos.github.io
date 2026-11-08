@@ -168,6 +168,21 @@
       .detail__copy p { color: var(--muted); font-size: 1.04rem; }
       .detail__pullquote { margin: 44px 0 0; padding-left: 20px; border-left: 2px solid var(--wood); font-family: var(--serif); font-size: clamp(1.35rem, 2.2vw, 2rem); line-height: 1.45; }
 
+      .venue { background: var(--paper); border-top: 1px solid var(--line); }
+      .venue__header { display: grid; grid-template-columns: minmax(0, 1fr) minmax(230px, .55fr); gap: 40px; align-items: end; margin-bottom: clamp(42px, 7vw, 88px); }
+      .venue__header .section-label { margin-top: 0; }
+      .venue__intro { margin: 0; max-width: 420px; color: var(--muted); font-size: .98rem; }
+      .venue__gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.5vw, 36px); }
+      .venue__item { min-width: 0; margin: 0; }
+      .venue__item img { aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(.82) contrast(.98); }
+      .venue__item:first-child img { object-position: center 72%; }
+      .venue__item:nth-child(2) img { object-position: 43% center; }
+      .venue__item figcaption { display: flex; gap: 16px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+      .venue__num { color: var(--wood); font-size: .75rem; letter-spacing: .14em; }
+      .venue__item h3 { margin: -4px 0 5px; font-family: var(--serif); font-size: clamp(1.3rem, 1.8vw, 1.8rem); font-weight: 500; }
+      .venue__item p { margin: 0; color: var(--muted); font-size: .88rem; }
+      .venue__credit { margin: 34px 0 0; color: var(--muted); font-size: .72rem; letter-spacing: .05em; }
+
       .closing {
         min-height: 88svh;
         position: relative;
@@ -183,19 +198,33 @@
       .closing__content { max-width: 800px; }
       .closing h2 { margin-bottom: 20px; font-family: var(--serif); font-size: clamp(3.2rem, 7vw, 7.5rem); font-weight: 500; letter-spacing: -.06em; line-height: 1; }
       .closing p { max-width: 380px; margin: 0 auto 32px; font-size: 1rem; }
-      .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 24px; border: 1px solid rgba(255,255,255,.72); font-size: .82rem; letter-spacing: .12em; transition: background .25s ease, color .25s ease; }
+      .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 24px; border: 1px solid rgba(255,255,255,.72); background: transparent; color: inherit; cursor: pointer; font-size: .82rem; letter-spacing: .12em; transition: background .25s ease, color .25s ease; }
       .button:hover, .button:focus-visible { color: var(--wood-dark); background: #f8f2e8; }
-      .button--disabled { cursor: not-allowed; opacity: .72; }
+      .contact-dialog { position: fixed; width: min(420px, calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 1px solid var(--line); background: var(--paper); color: var(--ink); box-shadow: 0 24px 70px rgba(20, 11, 6, .25); }
+      .contact-dialog::backdrop { background: rgba(20, 11, 6, .72); }
+      .contact-dialog__inner { padding: 38px clamp(22px, 5vw, 38px) 28px; text-align: center; }
+      .contact-dialog__close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 1.6rem; line-height: 1; }
+      .contact-dialog__close:hover { color: var(--ink); }
+      .contact-dialog__label { margin: 0 0 10px; color: var(--wood); font-size: .72rem; letter-spacing: .18em; }
+      .contact-dialog h2 { margin: 0; font-family: var(--serif); font-size: clamp(1.8rem, 5vw, 2.25rem); font-weight: 500; }
+      .contact-dialog__qr { width: min(100%, 285px); height: auto; margin: 16px auto 10px; }
+      .contact-dialog__note { margin: 0; color: var(--muted); font-size: .8rem; }
 
       footer { padding: 22px clamp(22px, 5vw, 72px); display: flex; justify-content: space-between; gap: 24px; color: var(--muted); font-size: .72rem; letter-spacing: .08em; }
 
       :focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
       @keyframes reveal { from { opacity: 0; transform: scale(1.035); } to { opacity: 1; transform: scale(1); } }
 
+      @media (max-width: 900px) {
+        .venue__gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .venue__item:first-child { grid-column: 1 / -1; }
+        .venue__item:first-child img { aspect-ratio: 16 / 9; }
+      }
+
       @media (max-width: 720px) {
-        .site-header { padding: 18px 20px; }
-        .site-nav { gap: 13px; font-size: .68rem; }
-        .site-nav a:nth-child(2) { display: none; }
+        .site-header { padding: 16px 20px; align-items: flex-start; flex-direction: column; gap: 10px; }
+        .site-header.is-scrolled { padding-block: 12px; }
+        .site-nav { width: 100%; justify-content: space-between; gap: 10px; font-size: .7rem; }
         .hero { padding-inline: 22px; }
         .hero__image { object-position: 57% center; }
         .intro, .manifesto__grid, .craft__header, .craft__layout, .detail { grid-template-columns: 1fr; }
@@ -205,6 +234,10 @@
         .craft__image { min-height: 420px; height: 112vw; }
         .process { margin-top: 12px; }
         .detail__image { width: min(100%, 410px); }
+        .venue__header, .venue__gallery { grid-template-columns: 1fr; }
+        .venue__header { gap: 20px; }
+        .venue__item:first-child { grid-column: auto; }
+        .venue__item img, .venue__item:first-child img { aspect-ratio: 4 / 3; }
         footer { align-items: flex-start; flex-direction: column; gap: 6px; }
       }
 
@@ -220,6 +253,7 @@
       <nav class="site-nav" aria-label="页面导航">
         <a href="#about">关于我</a>
         <a href="#craft">手艺</a>
+        <a href="#venue">场地</a>
         <a href="#contact">联系</a>
       </nav>
     </header>
@@ -282,16 +316,51 @@
         </div>
       </section>
 
+      <section class="section venue" id="venue" aria-labelledby="venue-title">
+        <div class="venue__header">
+          <div>
+            <p class="section-label">05 / 场地与设备</p>
+            <h2 class="section-title" id="venue-title">让木头成形的地方。</h2>
+          </div>
+          <p class="venue__intro">从一块木料到一件日常用的物件，工坊里的每道工序都有自己的节奏。设备帮忙把尺寸做准，手和眼仍要慢慢判断木纹与手感。</p>
+        </div>
+        <div class="venue__gallery">
+          <figure class="venue__item">
+            <img src="reference-images/fine-woodworking/selected-jpg/05-workshop-equipment.jpg" alt="木质墙面与窗边摆放着木工设备的工坊" loading="lazy" />
+            <figcaption><span class="venue__num">01</span><div><h3>工坊一隅</h3><p>木质墙面、窗边的设备与光影，各有各的位置。</p></div></figcaption>
+          </figure>
+          <figure class="venue__item">
+            <img src="reference-images/fine-woodworking/selected-jpg/06-wood-cutting-station.jpg" alt="工作台上的切割设备旁放着一块木板" loading="lazy" />
+            <figcaption><span class="venue__num">02</span><div><h3>切割与下料</h3><p>先看木纹，再让每一道尺寸落准。</p></div></figcaption>
+          </figure>
+          <figure class="venue__item">
+            <img src="reference-images/fine-woodworking/selected-jpg/07-woodturning-lathe.jpg" alt="木工车床上正在车削和打磨的木件" loading="lazy" />
+            <figcaption><span class="venue__num">03</span><div><h3>车削与打磨</h3><p>木料在旋转间，慢慢显出它的轮廓。</p></div></figcaption>
+          </figure>
+        </div>
+        <p class="venue__credit">配图为木工场地与设备示意，非实际工作场地。</p>
+      </section>
+
       <section class="closing" id="contact" aria-labelledby="contact-title">
         <img src="reference-images/fine-woodworking/selected-jpg/03-workshop-silhouette.jpg" alt="阳光穿过工坊，木匠正在工作" />
         <div class="closing__content">
           <p class="eyebrow">一件好木作，从一次聊天开始</p>
           <h2 id="contact-title">想做点什么？</h2>
           <p>带着你的想法、尺寸和使用场景来。我们一起想想，它适合成为怎样的一件木作。</p>
-          <span class="button button--disabled" aria-disabled="true" title="请补充邮箱或微信后启用">联系方式待补充</span>
+          <button class="button" id="contact-open" type="button" aria-haspopup="dialog" aria-controls="contact-dialog">联系方式</button>
         </div>
       </section>
     </main>
+
+    <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-dialog-title" aria-describedby="contact-dialog-note">
+      <div class="contact-dialog__inner">
+        <button class="contact-dialog__close" type="button" aria-label="关闭联系方式">&times;</button>
+        <p class="contact-dialog__label">CONTACT / 微信</p>
+        <h2 id="contact-dialog-title">联系方式</h2>
+        <img class="contact-dialog__qr" src="reference-images/wechat-contact-reference.png" alt="用户提供的微信二维码参考图" width="1536" height="1536" />
+        <p class="contact-dialog__note" id="contact-dialog-note">扫码前请先确认二维码可正常识别。</p>
+      </div>
+    </dialog>
 
     <footer>
       <span>一个玩木头的木头</span>
@@ -304,6 +373,20 @@
       window.addEventListener('scroll', setHeaderState, { passive: true });
       setHeaderState();
       document.getElementById('year').textContent = new Date().getFullYear();
+      const contactDialog = document.getElementById('contact-dialog');
+      const contactButton = document.getElementById('contact-open');
+      contactButton.addEventListener('click', () => contactDialog.showModal());
+      contactDialog.querySelector('.contact-dialog__close').addEventListener('click', () => contactDialog.close());
+      contactDialog.addEventListener('click', (event) => {
+        if (event.target === contactDialog) contactDialog.close();
+      });
+      contactDialog.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          contactDialog.close();
+        }
+      });
+      contactDialog.addEventListener('close', () => contactButton.focus());
     </script>
   </body>
 </html>
